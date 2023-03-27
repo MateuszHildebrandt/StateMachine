@@ -9,15 +9,17 @@ namespace StateMachine
         private bool _isDebug = false;
 
         public SubstateCode Parent { get; private set; }
+        public string Name { get; private set; }
 
         public Action onEnter;
         public Action onExit;
 
         private StateMachineCode _stateMachine;
 
-        public SubstateCode(StateMachineCode stateMachine, SubstateCode parent = null)
+        public SubstateCode(StateMachineCode stateMachine, string name = null, SubstateCode parent = null)
         {
             _stateMachine = stateMachine;
+            Name = name;
             SetParent(parent);
         }
 
@@ -47,6 +49,18 @@ namespace StateMachine
             onExit?.Invoke();
         }
 
+        internal SubstateCode On(Action onEnter)
+        {
+            this.onEnter += onEnter;
+            return this;
+        }
+
+        internal SubstateCode Off(Action onExit)
+        {
+            this.onExit += onExit;
+            return this;
+        }
+
         private void SetParent(SubstateCode parent)
         {
             if (parent == null)
@@ -58,7 +72,7 @@ namespace StateMachine
         private void PrintStateName(string tag)
         {
             if (_isDebug)
-                Debug.Log($"{tag} state: {GetType().FullName}");
+                Debug.Log($"{tag} state: {Name}");
         }
     }
 }

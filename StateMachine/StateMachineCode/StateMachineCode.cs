@@ -22,7 +22,6 @@ namespace StateMachine
 
             ExitState(_currState);
 
-            _lastState = _currState;
             _currState = newState;
             _currState.OnEnter();
         }
@@ -66,12 +65,17 @@ namespace StateMachine
 
             foreach (SubstateCode item in _enterStates)
                 EnterState(item);
-        }      
+        }
 
-        /*internal void EnterLast() //TODO
+        internal SubstateCode Add(string name = null, SubstateCode parent = null)
+        {
+            return new SubstateCode(this, name, parent);
+        }
+
+        internal void EnterLast()
         {
             if (_lastState != null)
                 EnterWithParents(_lastState);
-        }*/
+        }
     }
 }

@@ -1,48 +1,46 @@
-using StateMachine;
 using System.Collections;
 using UnityEngine;
 
-public class SM_CodeSample : MonoBehaviour
+namespace StateMachine.Sample
 {
-    [SerializeField] StateMachineCode stateMachine;
-
-    private SubstateCode substate1;
-    private SubstateCode substate2, substate2a, substate2b;
-
-    private void Start()
+    public class SM_CodeSample : MonoBehaviour
     {
-        stateMachine = new StateMachineCode();
+        [SerializeField] StateMachineCode stateMachine;
 
-        substate1 = new SubstateCode(stateMachine);
-        substate1.onEnter += () => print("onEnter -> substate1");
-        substate1.onExit += () => print("onExit -> substate1");
+        private SubstateCode substate1;
+        private SubstateCode substate2, substate2a, substate2b;
 
-        substate2 = new SubstateCode(stateMachine);
-        substate2.onEnter += () => print("onEnter -> substate2");
-        substate2.onExit += () => print("onExit -> substate2");
+        private void Start()
+        {
+            stateMachine = new StateMachineCode();
 
-        substate2a = new SubstateCode(stateMachine, substate2);
-        substate2a.onEnter += () => print("onEnter -> substate2a");
-        substate2a.onExit += () => print("onExit -> substate2a");
+            substate1 = stateMachine.Add("state1").On(Green).Off(Red);
+            substate2 = stateMachine.Add("state2").On(Blue);
+            substate2a = stateMachine.Add("state2a", substate2).On(Black).Off(Red);
+            substate2b = stateMachine.Add("state2b", substate2).On(White);
 
-        substate2b = new SubstateCode(stateMachine, substate2);
-        substate2b.onEnter += () => print("onEnter -> substate2b");
-        substate2b.onExit += () => print("onExit -> substate2b");
+            StartCoroutine(Run());
+        }
 
-        StartCoroutine(Run());
-    }
+        private void Green() => print("green");
+        private void Red() => print("red");
+        private void Blue() => print("blue");
+        private void Black() => print("black");
+        private void White() => print("white");
 
-    private IEnumerator Run()
-    {
-        WaitForSeconds WaitForSeconds = new WaitForSeconds(3);
 
-        substate1.Enter();
-        yield return WaitForSeconds;
+        private IEnumerator Run()
+        {
+            WaitForSeconds WaitForSeconds = new WaitForSeconds(3);
 
-        substate2a.Enter();
-        yield return WaitForSeconds;
+            substate1.Enter();
+            yield return WaitForSeconds;
 
-        substate2b.Enter();
-        yield return WaitForSeconds;
+            substate2a.Enter();
+            yield return WaitForSeconds;
+
+            substate2b.Enter();
+            yield return WaitForSeconds;
+        }
     }
 }
