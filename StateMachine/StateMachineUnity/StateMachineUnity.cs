@@ -50,7 +50,7 @@ namespace StateMachine
                 exitState?.OnExit();
         }
 
-        internal void EnterWithParents(SubstateUnity newState)
+        public void EnterWithParents(SubstateUnity newState)
         {
             if (newState == null)
                 return;
@@ -80,7 +80,7 @@ namespace StateMachine
         }
 
         [ShowMethod]
-        internal void EnterLast()
+        public void EnterLast()
         {
             if (_lastState != null)
                 EnterWithParents(_lastState);

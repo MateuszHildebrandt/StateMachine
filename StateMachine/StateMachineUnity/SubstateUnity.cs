@@ -30,7 +30,7 @@ namespace StateMachine
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             SetChildsActive(false);
         }
