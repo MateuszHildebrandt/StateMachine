@@ -49,13 +49,13 @@ namespace StateMachine
             onExit?.Invoke();
         }
 
-        internal SubstateCode On(Action onEnter)
+        public SubstateCode On(Action onEnter)
         {
             this.onEnter += onEnter;
             return this;
         }
 
-        internal SubstateCode Off(Action onExit)
+        public SubstateCode Off(Action onExit)
         {
             this.onExit += onExit;
             return this;

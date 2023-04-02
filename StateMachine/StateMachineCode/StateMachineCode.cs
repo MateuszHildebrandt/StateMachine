@@ -35,7 +35,7 @@ namespace StateMachine
                 exitState?.OnExit();
         }
 
-        internal void EnterWithParents(SubstateCode newState)
+        public void EnterWithParents(SubstateCode newState)
         {
             if (newState == null)
                 return;
@@ -67,12 +67,12 @@ namespace StateMachine
                 EnterState(item);
         }
 
-        internal SubstateCode Add(string name = null, SubstateCode parent = null)
+        public SubstateCode Add(string name = null, SubstateCode parent = null)
         {
             return new SubstateCode(this, name, parent);
         }
 
-        internal void EnterLast()
+        public void EnterLast()
         {
             if (_lastState != null)
                 EnterWithParents(_lastState);

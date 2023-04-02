@@ -1,0 +1,18 @@
+{
+    "name": "StateMachineEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b0bdae6d33d76bc4698d8bb7c4db929f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
